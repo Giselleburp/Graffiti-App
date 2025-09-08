@@ -33,10 +33,12 @@ struct MemoryView: View {
                         }
                     }
                 }
-                .navigationTitle("Canvas")
+                .navigationTitle("Memories")
                 .padding()
-                NavigationLink(destination: CanvasView()){
-                    Image(systemName: "plus")
+                NavigationLink {
+                    PostMemoryView(viewModel: MemoriesViewModel())
+                } label: {
+                    Text ("+")
                         .frame(width: 50, height: 50, alignment: .center)
                         .background(Color.mint)
                         .cornerRadius(50)
