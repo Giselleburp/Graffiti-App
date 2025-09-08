@@ -14,6 +14,16 @@ struct MemoryView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                NavigationLink {
+                    CameraMainView()
+                } label: {
+                    Text("Add New Wall +")
+                        .frame(width: 300, height: 60, alignment: .center)
+                        .background(Color.mint)
+                        .cornerRadius(50)
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                }
                 VStack(spacing: 20) {
                     if viewModel.memories.isEmpty {
                         UnavailView()
