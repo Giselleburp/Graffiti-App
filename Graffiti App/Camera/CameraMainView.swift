@@ -13,61 +13,75 @@ struct CameraMainView: View {
     @State private var showingCamera = false
     @State private var selectedImage: UIImage?
     @State private var selectedItem: PhotosPickerItem?
-   
+    
     
     var body: some View {
-        VStack {
-            if let selectedImage = selectedImage {
-                Image(uiImage: selectedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-            } else {
-            Text("No Image Selected")
-                    .foregroundStyle(.gray)
-                    .padding()
-            }
-            PhotosPicker(
-                selection: $selectedItem,
-                matching: .images, photoLibrary: .shared()
-            ){
-                Text("Select Image")
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color .purple)
-                    .foregroundColor (.white)
-                    .cornerRadius (25)
-            }
-            .onChange(of:
-                        selectedItem){
-                newItem in
-                if let newItem = newItem {
-                    Task{
-                        if let data = try? await newItem .loadTransferable(type:Data.self), let image = UIImage(data: data) {
-                            selectedImage = image
+        NavigationStack {
+            VStack {
+                if let selectedImage = selectedImage {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 300)
+                } else {
+                    Text("No Image Selected")
+                        .foregroundStyle(.gray)
+                        .padding()
+                }
+                PhotosPicker(
+                    selection: $selectedItem,
+                    matching: .images, photoLibrary: .shared()
+                ){
+                    Text("Select Image")
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color .purple)
+                        .foregroundColor (.white)
+                        .cornerRadius (25)
+                }
+                .onChange(of:
+                            selectedItem){
+                    newItem in
+                    if let newItem = newItem {
+                        Task{
+                            if let data = try? await newItem .loadTransferable(type:Data.self), let image = UIImage(data: data) {
+                                selectedImage = image
+                            }
                         }
                     }
                 }
+                Button(action: {
+                    showingCamera = true
+                }){
+                    Text("Scan Wall")
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color .yellow)
+                        .foregroundColor (.black)
+                        .cornerRadius (25)
+                }
+                .sheet(isPresented: $showingCamera){
+                    CameraView(image: $selectedImage)
+                }
             }
-            Button(action: {
-                showingCamera = true
-            }){
-                Text("Scan Wall")
+            NavigationLink {
+                DrawingMainView()
+            } label: {
+                Text("GO!")
                     .font(.headline)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color .yellow)
-                    .foregroundColor (.black)
+                    .background(Color .pink)
+                    .foregroundColor (.white)
                     .cornerRadius (25)
             }
-            .sheet(isPresented: $showingCamera){
-                CameraView(image: $selectedImage)
             }
+            
+            .padding()
         }
-        .padding()
     }
-}
 
 #Preview {
     CameraMainView()

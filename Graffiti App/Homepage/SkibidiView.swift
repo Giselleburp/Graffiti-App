@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Line {
+struct Line1 {
     var points = [CGPoint]()
     var color: Color = .accentColor
     var lineWidth: Double = 2.0
@@ -15,14 +15,14 @@ struct Line {
 }
 
 struct SkibidiView: View {
-    @State private var currentLine = Line()
-    @State private var lines: [Line] = []
+    @State private var currentLine = Line1()
+    @State private var lines1: [Line1] = []
     @State private var selectedColor:Color = .red
     var body: some View {
             VStack {
                 
                 Canvas { context, size in
-                    for line in lines  {
+                    for line in lines1  {
                         var path = Path()
                         path.addLines(line.points)
                         context.stroke(path, with: .color(line.color), lineWidth: line.lineWidth)
@@ -32,11 +32,11 @@ struct SkibidiView: View {
                     .onChanged({ value in
                         let newPoint = value.location
                         currentLine.points.append(newPoint)
-                        self.lines.append(currentLine)
+                        self.lines1.append(currentLine)
                     })
                         .onEnded({ value in
                             // self.lines.append(currentLine)
-                            self.currentLine = Line(points: [], color: selectedColor)
+                            self.currentLine = Line1(points: [], color: selectedColor)
                         })
                 )
                 ColorPickerView(selectedColor: $selectedColor)
