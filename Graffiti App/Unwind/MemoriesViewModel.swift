@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-struct SavedMemory: Codable {
-    var caption: String
-    var date: Date
-}
 
 class MemoriesViewModel: ObservableObject {
     @Published var memories: [Memory] = []

@@ -8,16 +8,13 @@
 import SwiftUI
 import Foundation
 
-struct Mission {
-    var name: Image
-    var pointsAwarded: Int
-    var description: String
-    var pic: String
-
-}
-
 struct Memory {
     var pic: Image
+    var caption: String
+    var date: Date
+}
+
+struct SavedMemory: Codable {
     var caption: String
     var date: Date
 }

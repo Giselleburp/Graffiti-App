@@ -33,17 +33,17 @@ struct MemoryView: View {
                         }
                     }
                 }
+                .navigationTitle("Canvas")
                 .padding()
-                NavigationLink(destination: PostMemoryView(viewModel: MemoriesViewModel())){
-                    Text("Create now")
-                        .frame(width: 300, height: 60, alignment: .center)
+                NavigationLink(destination: CanvasView()){
+                    Image(systemName: "plus")
+                        .frame(width: 50, height: 50, alignment: .center)
                         .background(Color.mint)
                         .cornerRadius(50)
                         .font(.headline)
                         .foregroundColor(Color.white)
                 }
             }
-            .navigationTitle("Memories")
         }
     }
 }

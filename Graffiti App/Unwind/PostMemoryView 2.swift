@@ -63,7 +63,7 @@ let loadedUIImage = UIImage(data: data) {
                     } label: {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                            Text("Save Memory")
+                            Text("Save Canvas")
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -73,7 +73,7 @@ let loadedUIImage = UIImage(data: data) {
                     }
                 }
             }
-            .navigationTitle("Post Memory")
+            .navigationTitle("Post Canvas")
             .navigationDestination(isPresented: $goToNextView) {
                 MemoryView(viewModel: viewModel)
             }
