@@ -25,7 +25,7 @@ struct MemoryView: View {
                 }
             }
             .padding()
-            Button("GO HOEM PAGE") {
+            Button("GO HOME PAGE") {
                 print("GO HOME PAGE")
             }
         }
