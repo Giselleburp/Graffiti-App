@@ -16,9 +16,7 @@ struct MemoriesListView: View {
         NavigationStack {
             VStack {
                 if viewModel.memories.isEmpty {
-                    Text("No memories yet 🥲")
-                        .font(.headline)
-                        .padding()
+                   UnavailView()
                 } else {
                     List {
                         ForEach(viewModel.memories.indices, id: \.self) { index in
