@@ -16,9 +16,7 @@ struct MemoryView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     if viewModel.memories.isEmpty {
-                        Text("imagine no memories")
-                            .font(.headline)
-                            .padding()
+                        UnavailView()
                     } else {
                         ForEach(viewModel.memories.indices, id: \.self) { index in
                             MemoryCardView(memory: viewModel.memories[index])
