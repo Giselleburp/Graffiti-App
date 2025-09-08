@@ -10,6 +10,7 @@ import SwiftUI
 
 class MemoriesViewModel: ObservableObject {
     @Published var memories: [Memory] = []
+   
 
     private let saveKey = "savedMemories"
 

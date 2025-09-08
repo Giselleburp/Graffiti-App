@@ -9,6 +9,8 @@
 import SwiftUI
 import PhotosUI
 
+
+
 struct PostMemoryView: View {
     @ObservedObject var viewModel: MemoriesViewModel
 
@@ -18,7 +20,6 @@ struct PostMemoryView: View {
     @State private var selectedImage: Image? = nil
     @State private var uiImage: UIImage? = nil
     @State private var goToNextView = false
-
     var body: some View {
         NavigationStack {
             Form {
@@ -63,11 +64,11 @@ let loadedUIImage = UIImage(data: data) {
                     } label: {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                            Text("Save Canvas")
+                            Text("Save Memory")
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.mint)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }

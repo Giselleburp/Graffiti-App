@@ -16,7 +16,10 @@ struct Toolbar: View {
     @Binding var lines: [Line]
     @Binding var undoneLines: [Line]
     @Binding var showingImagePicker: Bool
-    @Binding var selectedImage: UIImage?   // <- New binding here
+    @Binding var isImageLocked: Bool
+    @Binding var overlayImage: UIImage?
+
+
 
     var onSave: () -> Void
     @Binding var showingSaveAlert: Bool
@@ -68,14 +71,18 @@ struct Toolbar: View {
             .font(.title)
 
             Button("Select Image") {
+                isImageLocked = false
                 showingImagePicker = true
             }
 
+
             Button("Remove Image") {
-                selectedImage = nil
+                overlayImage = nil
+                isImageLocked = true
             }
-            .disabled(selectedImage == nil)
-            .foregroundColor(selectedImage == nil ? .gray : .red)
+            .disabled(overlayImage == nil)
+            .foregroundColor(overlayImage == nil ? .gray : .red)
+
         }
     }
 

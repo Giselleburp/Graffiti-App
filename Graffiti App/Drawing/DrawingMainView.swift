@@ -9,6 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct DrawingMainView: View {
+    var initialImage: UIImage? = nil
+
+    @State private var isImageLocked: Bool = true
     @State private var lines: [Line] = []
     @State private var undoneLines: [Line] = []
     @State private var selectedColor: Color = .black
@@ -19,8 +22,16 @@ struct DrawingMainView: View {
     @State private var imageOffset: CGSize = .zero
     @State private var showingImagePicker = false
     @State private var imageScale: CGFloat = 1.0
+    @State private var backgroundImage: UIImage?
+    @State private var overlayImage: UIImage?
 
-    
+
+    private func save() {
+            let image = snapshot()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            showingSaveAlert = true
+        }
+
     var body: some View {
         VStack {
             DrawingPad(
@@ -29,12 +40,14 @@ struct DrawingMainView: View {
                 selectedColor: $selectedColor,
                 lineWidth: $lineWidth,
                 isEraserOn: $isEraserOn,
-                selectedImage: $selectedImage,
+                backgroundImage: backgroundImage,
+                overlayImage: $overlayImage,
                 imageOffset: $imageOffset,
-                imageScale: $imageScale
+                imageScale: $imageScale,
+                isImageLocked: $isImageLocked
             )
 
-            
+
             Toolbar(
                 selectedColor: $selectedColor,
                 lineWidth: $lineWidth,
@@ -42,10 +55,14 @@ struct DrawingMainView: View {
                 lines: $lines,
                 undoneLines: $undoneLines,
                 showingImagePicker: $showingImagePicker,
-                selectedImage: $selectedImage,      // <-- Pass this binding here
+                isImageLocked: $isImageLocked,
+                overlayImage: $overlayImage,
                 onSave: save,
                 showingSaveAlert: $showingSaveAlert
             )
+
+
+
 
             .padding()
         }
@@ -54,9 +71,15 @@ struct DrawingMainView: View {
         }
        
         .sheet(isPresented: $showingImagePicker) {
-            
-            PhotoPicker(selectedImage: $selectedImage)
+            PhotoPicker(selectedImage: $overlayImage) 
         }
+
+        .onAppear {
+            if backgroundImage == nil, let initialImage = initialImage {
+                backgroundImage = initialImage
+            }
+        }
+
     }
     struct PhotoPicker: UIViewControllerRepresentable {
         @Binding var selectedImage: UIImage?
@@ -96,20 +119,21 @@ struct DrawingMainView: View {
             }
         }
     }
-    private func save() {
-        let image = snapshot()
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        showingSaveAlert = true
-    }
-    
     private func snapshot() -> UIImage {
-        let controller = UIHostingController(rootView: DrawingOnlyView(lines: lines))
+        let controller = UIHostingController(
+            rootView: DrawingOnlyView(
+                lines: lines,
+                backgroundImage: backgroundImage,
+                overlayImage: overlayImage
+            )
+        )
+
         let view = controller.view!
         let targetSize = UIScreen.main.bounds.size
-        
+
         view.bounds = CGRect(origin: .zero, size: targetSize)
         view.backgroundColor = .clear
-        
+
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         return renderer.image { _ in
             view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
@@ -128,3 +152,4 @@ struct DrawingMainView_Previews: PreviewProvider {
         DrawingMainView()
     }
 }
+

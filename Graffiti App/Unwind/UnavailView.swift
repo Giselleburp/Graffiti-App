@@ -22,7 +22,7 @@ struct UnavailView: View {
             NavigationLink(destination: PostMemoryView(viewModel: MemoriesViewModel())) {
                 Text("Create new canvas")
                     .font(.subheadline)
-                    .frame(width: 150, height: 25, alignment: .center)
+                    .frame(width: 200, height: 30, alignment: .center)
                     .foregroundStyle(Color.white)
                     .background(Color.blue)
                     .cornerRadius(40)
