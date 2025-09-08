@@ -10,22 +10,9 @@
 		B193007A2E62E19B00B66D67 /* Graffiti App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Graffiti App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		89027C202E6E81C400EABDA4 /* Exceptions for "Graffiti App" folder in "Graffiti App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Graffiti-App-Info.plist",
-			);
-			target = B19300792E62E19B00B66D67 /* Graffiti App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B193007C2E62E19B00B66D67 /* Graffiti App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				89027C202E6E81C400EABDA4 /* Exceptions for "Graffiti App" folder in "Graffiti App" target */,
-			);
 			path = "Graffiti App";
 			sourceTree = "<group>";
 		};
