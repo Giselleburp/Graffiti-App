@@ -33,7 +33,7 @@ struct ContentView: View {
                 NavigationLink(destination: MemoryView()){
                     Text("Play now!")
                         .frame(width: 300, height: 60, alignment: .center)
-                        .background(Color.gray)
+                        .background(Color.mint)
                         .cornerRadius(50)
                         .font(.headline)
                         .foregroundColor(Color.white)
