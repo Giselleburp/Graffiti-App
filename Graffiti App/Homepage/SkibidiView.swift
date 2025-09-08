@@ -14,7 +14,7 @@ struct Line {
 
 }
 
-struct SwiftUIView: View {
+struct SkibidiView: View {
     @State private var currentLine = Line()
     @State private var lines: [Line] = []
     @State private var selectedColor:Color = .red
@@ -51,6 +51,6 @@ struct SwiftUIView: View {
 
 struct SwiftUiView_Previews: PreviewProvider {
     static var previews: some View {
-        SwiftUIView()
+        SkibidiView()
     }
 }

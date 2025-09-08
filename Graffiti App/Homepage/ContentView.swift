@@ -26,11 +26,11 @@ struct ContentView: View {
                 Text("Vandalising!")
                     .font(.largeTitle)
                     .bold()
-                SwiftUIView()
+                SkibidiView()
                     .fixedSize()
             }
             HStack {
-                NavigationLink(destination: MemoryView()){
+                NavigationLink(destination: MemoryView(viewModel: MemoriesViewModel())){
                     Text("Play now!")
                         .frame(width: 300, height: 60, alignment: .center)
                         .background(Color.mint)

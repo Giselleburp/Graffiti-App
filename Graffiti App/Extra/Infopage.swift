@@ -24,8 +24,8 @@ struct Infopage: View {
                     .font(.largeTitle)
             }
                 Text("• Hip-hop culture has a strong impact on Modern Graffiti.")
-            Text("• some deem Graffiti as vandalism while others appreciate Graffiti")
-            Text("• this is why we built this app -- so you won’t do anything illegal!!")
+            Text("• some deem Graffiti as vandalisml, others appreciate Graffiti")
+            Text("• we built this app so you won’t illegal stuff!!")
                 .bold()
             Spacer()
             Text("kampong glam")

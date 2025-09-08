@@ -19,7 +19,7 @@ struct UnavailView: View {
             Text("You have not saved any Canvas yet")
                 .font(.system(size: 15))
                 .foregroundStyle(Color.gray)
-            NavigationLink(destination: PostMemoryView()) {
+            NavigationLink(destination: PostMemoryView(viewModel: MemoriesViewModel())) {
                 Text("Create new canvas")
                     .font(.subheadline)
                     .frame(width: 150, height: 25, alignment: .center)
