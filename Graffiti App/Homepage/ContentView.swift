@@ -8,27 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isNewItemSheetPresented = false
+    
     var body: some View {
-        VStack {
-            Text("Start")
-                .font(.largeTitle)
-                .bold()
-            Text("Vandalising!")
-                .font(.largeTitle)
-                .bold()
-            SwiftUIView()
-                .fixedSize()
-        }
-        HStack {
-            Button { //later we can let this button bring to antherview
-                    } label: {
-                        Text("Play Now")
-                            .padding()
-                            .background(.black)
-                            .foregroundStyle(.white)
-                            .cornerRadius(30)
-
-                    }
+        NavigationStack {
+            VStack {
+                Button("Information") {
+                    isNewItemSheetPresented = true
+                }
+                .sheet(isPresented: $isNewItemSheetPresented) {
+                    Infopage()
+                }
+                Text("Start")
+                    .font(.largeTitle)
+                    .bold()
+                Text("Vandalising!")
+                    .font(.largeTitle)
+                    .bold()
+                SwiftUIView()
+                    .fixedSize()
+            }
+            HStack {
+                NavigationLink(destination: MemoryView()){
+                    Text("Play now!")
+                        .frame(width: 300, height: 60, alignment: .center)
+                        .background(Color.gray)
+                        .cornerRadius(50)
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                }
+            }
         }
     }
 }
