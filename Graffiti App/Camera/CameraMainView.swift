@@ -22,7 +22,6 @@ struct CameraMainView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 300)
-                    .cornerRadius(25)
             } else {
             Text("No Image Selected")
                     .foregroundStyle(.gray)

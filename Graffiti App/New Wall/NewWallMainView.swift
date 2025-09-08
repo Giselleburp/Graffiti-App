@@ -14,21 +14,18 @@ struct NewWallMainView: View {
             NavigationView{
                 VStack {
                     NavigationLink{
-                        WallView()
+                        CameraMainView()
                     } label: {
                         Text ("Create")
-                            .padding(EdgeInsets(top: 20, leading: 50, bottom: 20, trailing: 50))
+                            .frame(width: 300, height: 60, alignment: .center)
                             .background(Color.blue)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .font(.system(size: 70))
+                            .cornerRadius(50)
+                            .font(.system(size: 50))
                         
                     }
                     Text("Previous Walls")
                         .font(.largeTitle)
-                        
-                        
-                    Spacer()
                     
                 }
             }
