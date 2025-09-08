@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Line {
     var points = [CGPoint]()
-    var color: Color = .blue
+    var color: Color = .accentColor
     var lineWidth: Double = 2.0
 
 }
@@ -36,11 +36,11 @@ struct SwiftUIView: View {
                     })
                         .onEnded({ value in
                             // self.lines.append(currentLine)
-                            self.currentLine = Line(points: [])
+                            self.currentLine = Line(points: [], color: selectedColor)
                         })
                 )
                 ColorPickerView(selectedColor: $selectedColor)
-                    .onChange(of: selectedColor) { oldColor, newColor in currentLine.color = newColor
+                    .onChange(of: selectedColor) { newColor in currentLine.color = newColor
                     }
             }
             .frame(minWidth: 400, minHeight: 400)
