@@ -12,24 +12,31 @@ struct MemoryView: View {
     @ObservedObject var viewModel: MemoriesViewModel
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                if viewModel.memories.isEmpty {
-                    Text("imagine no memories")
-                        .font(.headline)
-                        .padding()
-                } else {
-                    ForEach(viewModel.memories.indices, id: \.self) { index in
-                        MemoryCardView(memory: viewModel.memories[index])
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    if viewModel.memories.isEmpty {
+                        Text("imagine no memories")
+                            .font(.headline)
+                            .padding()
+                    } else {
+                        ForEach(viewModel.memories.indices, id: \.self) { index in
+                            MemoryCardView(memory: viewModel.memories[index])
+                        }
                     }
                 }
+                .padding()
+                NavigationLink(destination: PostMemoryView(viewModel: MemoriesViewModel())){
+                    Text("Create now")
+                        .frame(width: 300, height: 60, alignment: .center)
+                        .background(Color.mint)
+                        .cornerRadius(50)
+                        .font(.headline)
+                        .foregroundColor(Color.white)
+                }
             }
-            .padding()
-            Button("GO HOEM PAGE") {
-                print("GO HOME PAGE")
-            }
+            .navigationTitle("Memories")
         }
-        .navigationTitle("Memories")
     }
 }
 
