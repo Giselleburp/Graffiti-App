@@ -7,38 +7,52 @@
 
 import SwiftUI
 
-
 class MemoriesViewModel: ObservableObject {
     @Published var memories: [Memory] = []
-   
-
+    
     private let saveKey = "savedMemories"
-
+    
     init() {
         loadMemories()
     }
-
-    func addMemory(_ memory: Memory) {
-        memories.append(memory)
+    func addMemory(image: UIImage, caption: String, date: Date) {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            print("Failed to convert UIImage to data")
+            return
+        }
+        let newMemory = Memory(id: UUID(), imageData: imageData, caption: caption, date: date)
+        memories.append(newMemory)
+        saveMemories()
+    }
+    func removeMemory(id: UUID) {
+        memories.removeAll { $0.id == id }
         saveMemories()
     }
 
-    func saveMemories() {
-        let saveData = memories.map {
-            SavedMemory(caption: $0.caption, date: $0.date)
-        }
-
-        if let encoded = try? JSONEncoder().encode(saveData) {
-            UserDefaults.standard.set(encoded, forKey: saveKey)
+    
+    private func saveMemories() {
+        do {
+            let data = try JSONEncoder().encode(memories)
+            UserDefaults.standard.set(data, forKey: saveKey)
+            print("Saved memories count: \(memories.count)")
+        } catch {
+            print("Error encoding memories: \(error.localizedDescription)")
         }
     }
-
-    func loadMemories() {
-        if let savedData = UserDefaults.standard.data(forKey: saveKey),
-           let decoded = try? JSONDecoder().decode([SavedMemory].self, from: savedData) {
-            memories = decoded.map {
-                Memory(pic: Image(systemName: "photo"), caption: $0.caption, date: $0.date)
-            }
+    
+    
+    private func loadMemories() {
+        guard let data = UserDefaults.standard.data(forKey: saveKey) else {
+            print("No saved data found")
+            return
+        }
+        do {
+            let decodedMemories = try JSONDecoder().decode([Memory].self, from: data)
+            self.memories = decodedMemories
+            print("Loaded memories count: \(memories.count)")
+        } catch {
+            print("Error decoding memories: \(error.localizedDescription)")
         }
     }
 }
+

@@ -121,15 +121,18 @@ struct DrawingMainView: View {
     }
     private func snapshot() -> UIImage {
         let controller = UIHostingController(
-            rootView: DrawingOnlyView(
+            rootView: CanvasSnapshotView(
                 lines: lines,
                 backgroundImage: backgroundImage,
-                overlayImage: overlayImage
+                overlayImage: overlayImage,
+                imageScale: imageScale,
+                imageOffset: imageOffset,
+                isImageLocked: isImageLocked
             )
         )
 
         let view = controller.view!
-        let targetSize = UIScreen.main.bounds.size
+        let targetSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.7)
 
         view.bounds = CGRect(origin: .zero, size: targetSize)
         view.backgroundColor = .clear
@@ -139,6 +142,7 @@ struct DrawingMainView: View {
             view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         }
     }
+
     private func removeImage() {
         selectedImage = nil
         imageOffset = .zero

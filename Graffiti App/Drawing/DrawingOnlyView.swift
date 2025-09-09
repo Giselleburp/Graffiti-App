@@ -11,6 +11,9 @@ struct DrawingOnlyView: View {
     var lines: [Line]
     var backgroundImage: UIImage?
     var overlayImage: UIImage?
+    var imageScale: CGFloat
+    var imageOffset: CGSize
+    var isImageLocked: Bool
 
     var body: some View {
         GeometryReader { geo in
@@ -26,10 +29,19 @@ struct DrawingOnlyView: View {
                 }
 
                 if let overlay = overlayImage {
-                    Image(uiImage: overlay)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: geo.size.width, height: geo.size.height)
+                    if isImageLocked {
+                        Image(uiImage: overlay)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                    } else {
+                        Image(uiImage: overlay)
+                            .resizable()
+                            .scaledToFit()
+                            .scaleEffect(imageScale)
+                            .offset(imageOffset)
+                            .frame(width: geo.size.width, height: geo.size.height)
+                    }
                 }
 
                 ForEach(lines.indices, id: \.self) { i in

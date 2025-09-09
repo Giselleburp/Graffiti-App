@@ -10,40 +10,30 @@ import SwiftUI
 struct Infopage: View {
     var body: some View {
         VStack(alignment:.leading) {
-            Text("Singapore local")
-                .font(.largeTitle)
-            Text("GRAFFITI")
+            Text("")
+            Text("Singapore local Graffiti")
                 .font(.largeTitle)
                 .bold()
-            Spacer()
-            HStack {
-                Text("Modern")
+                Text("• Hip-hop strongly impact Modern Graffiti.")
+                Text("• some think its Vandalism, some appreciate.")
+                Text("• we built this app so you won’t do illegal stuff")
+                Text("kampong glam")
                     .font(.largeTitle)
                     .bold()
-                Text("Graffiti")
-                    .font(.largeTitle)
+                Text("• many artists unite together by hand painting and spray")
+                Text("painting unique arts")
+                Text("• below is an artwork painted by the local artist, Yip Yew Chong")
+                Spacer()
+                Image(.downlaod)
+                    .frame(width:380, height:350)
+                    .clipped()
+                Spacer()
+                Spacer()
+                Text("STRAITS TIME PHOTO: SHINTARO TAY")
             }
-                Text("• Hip-hop strongly impact Modern Graffiti.")
-            Text("• some think its Vandalism, some appreciate.")
-            Text("• we built this app so you won’t do illegal stuff")
-                .bold()
-            Spacer()
-            Text("kampong glam")
-                .font(.largeTitle)
-                .bold()
-            Text("• many artists unite together by hand painting and spray painting unique arts")
-            Text("• below is an artwork painted by the local artist, Yip Yew Chong")
-            Spacer()
-            Image(.downlaod)
-                .frame(width:380, height:350)
-                .clipped()
-            Spacer()
-            Spacer()
-            Text("STRAITS TIME PHOTO: SHINTARO TAY")
+            .padding()
         }
-        .padding()
     }
-}
 
 #Preview {
     Infopage()

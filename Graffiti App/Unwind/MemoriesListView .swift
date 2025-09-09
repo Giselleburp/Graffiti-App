@@ -16,24 +16,22 @@ struct MemoriesListView: View {
         NavigationStack {
             VStack {
                 if viewModel.memories.isEmpty {
-                   UnavailView()
+                    Text("No memories yet")
                 } else {
-                    List {
-                        ForEach(viewModel.memories.indices, id: \.self) { index in
-                            let memory = viewModel.memories[index]
-                            VStack(alignment: .leading) {
-                                memory.pic
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 100)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                                Text(memory.caption)
-                                    .font(.headline)
-                                Text(memory.date.formatted(date: .long, time: .shortened))
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.vertical, 5)
+                    List(viewModel.memories) { memory in
+                        VStack(alignment: .leading) {
+                            memory.image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 100)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                            Text(memory.caption)
+                                .font(.headline)
+
+                            Text(memory.date.formatted(date: .long, time: .shortened))
+                                .font(.caption)
+                                .foregroundColor(.gray)
                         }
                     }
                     .listStyle(.plain)
@@ -49,8 +47,8 @@ struct MemoriesListView: View {
                 .sheet(isPresented: $showPostMemory) {
                     PostMemoryView(viewModel: viewModel)
                 }
-                }
             }
             .navigationTitle("Memories")
         }
     }
+}

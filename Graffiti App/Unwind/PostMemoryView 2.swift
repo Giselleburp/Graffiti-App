@@ -13,7 +13,7 @@ import PhotosUI
 
 struct PostMemoryView: View {
     @ObservedObject var viewModel: MemoriesViewModel
-
+    
     @State private var caption = ""
     @State private var wakeUp = Date.now
     @State private var selectedItem: PhotosPickerItem? = nil
@@ -33,7 +33,7 @@ struct PostMemoryView: View {
                     } else {
                         Text("No image selected")
                     }
-
+                    
                     PhotosPicker(selection: $selectedItem, matching: .images) {
                         Label("Select a photo", systemImage: "photo")
                             .padding()
@@ -44,19 +44,19 @@ struct PostMemoryView: View {
                     .onChange(of: selectedItem) { _, newItem in
                         Task {
                             if let data = try? await newItem?.loadTransferable(type: Data.self),
-let loadedUIImage = UIImage(data: data) {
+                               let loadedUIImage = UIImage(data: data) {
                                 uiImage = loadedUIImage
                                 selectedImage = Image(uiImage: loadedUIImage)
                             }
                         }
                     }
                 }
-
+                
                 Section {
                     TextField("Enter caption here", text: $caption)
                     DatePicker("Enter a date", selection: $wakeUp)
                 }
-
+                
                 Section {
                     Button {
                         saveMemory()
@@ -80,15 +80,12 @@ let loadedUIImage = UIImage(data: data) {
             }
         }
     }
-
+    
     func saveMemory() {
         guard let uiImage = uiImage else { return }
-        let memoryImage = Image(uiImage: uiImage)
-        let newMemory = Memory(pic: memoryImage, caption: caption, date: wakeUp)
-        viewModel.addMemory(newMemory)
+        viewModel.addMemory(image: uiImage, caption: caption, date: wakeUp)
     }
 }
-
 #Preview {
     PostMemoryView(viewModel: MemoriesViewModel())
 }
